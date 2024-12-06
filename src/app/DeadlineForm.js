@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./DeadlineForm.module.css";
 
-export default function DeadlineForm() {
+export default function DeadlineForm({ setVisible }) {
   const [title, setTitle] = useState("");
   const [deadline, setdeadline] = useState("");
   const [message, setMessage] = useState("");
@@ -44,6 +44,7 @@ export default function DeadlineForm() {
 
   return (
     <div id={styles.deadlineForm}>
+      <button onClick={() => setVisible(false)}>x</button>
       <h1>Create a New Deadline</h1>
       <form onSubmit={handleSubmit} id={styles.deadlineInnerForm}>
         <div className={styles.field}>
