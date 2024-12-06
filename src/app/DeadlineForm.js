@@ -6,7 +6,9 @@ import styles from "./DeadlineForm.module.css";
 
 export default function DeadlineForm({ setVisible }) {
   const [title, setTitle] = useState("");
-  const [deadline, setdeadline] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
 
@@ -15,7 +17,12 @@ export default function DeadlineForm({ setVisible }) {
     e.preventDefault();
 
     // Data to be sent to the backend API
-    const deadlineData = { title, deadline };
+    const deadlineData = {
+      title,
+      description,
+      start_date: startDate,
+      end_date: endDate,
+    };
     console.log(deadlineData);
     const bodyData = JSON.stringify(deadlineData);
     console.log(bodyData);
@@ -32,7 +39,9 @@ export default function DeadlineForm({ setVisible }) {
         const result = await response.json();
         setMessage("deadline created successfully!");
         setTitle("");
-        setdeadline("");
+        setDescription("");
+        setStartDate("");
+        setEndDate("");
         router.refresh();
       } else {
         setMessage("Error creating deadline.");
@@ -58,12 +67,31 @@ export default function DeadlineForm({ setVisible }) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="deadline">deadline:</label>
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="start_date">Start Date:</label>
           <input
             type="date"
-            id="deadline"
-            value={deadline}
-            onChange={(e) => setdeadline(e.target.value)}
+            id="start_date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="end_date">End Date:</label>
+          <input
+            type="date"
+            id="end_date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             required
           />
         </div>
