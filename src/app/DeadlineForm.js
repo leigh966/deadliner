@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./DeadlineForm.module.css";
 
 export default function DeadlineForm() {
   const [title, setTitle] = useState("");
@@ -42,10 +43,10 @@ export default function DeadlineForm() {
   };
 
   return (
-    <div>
-      <h1>Create a New deadline</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div id={styles.deadlineForm}>
+      <h1>Create a New Deadline</h1>
+      <form onSubmit={handleSubmit} id={styles.deadlineInnerForm}>
+        <div class={styles.field}>
           <label htmlFor="title">Title:</label>
           <input
             type="text"
@@ -55,16 +56,19 @@ export default function DeadlineForm() {
             required
           />
         </div>
-        <div>
+        <div class={styles.field}>
           <label htmlFor="deadline">deadline:</label>
-          <textarea
+          <input
+            type="date"
             id="deadline"
             value={deadline}
             onChange={(e) => setdeadline(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" id={styles.submitButton}>
+          Submit
+        </button>
       </form>
       {message && <p>{message}</p>}
     </div>
