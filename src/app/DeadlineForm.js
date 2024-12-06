@@ -46,7 +46,7 @@ export default function DeadlineForm() {
     <div id={styles.deadlineForm}>
       <h1>Create a New Deadline</h1>
       <form onSubmit={handleSubmit} id={styles.deadlineInnerForm}>
-        <div class={styles.field}>
+        <div className={styles.field}>
           <label htmlFor="title">Title:</label>
           <input
             type="text"
@@ -56,7 +56,7 @@ export default function DeadlineForm() {
             required
           />
         </div>
-        <div class={styles.field}>
+        <div className={styles.field}>
           <label htmlFor="deadline">deadline:</label>
           <input
             type="date"
