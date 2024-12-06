@@ -4,14 +4,21 @@ export async function POST(req) {
   try {
     const dlJson = await req.json();
     console.log(dlJson);
-    const { title, deadline } = dlJson;
+    const { title, description, start_date, end_date } = dlJson;
 
     // Log received data
-    console.log("Received post data:", { title, deadline });
+    console.log("Received post data:", {
+      title,
+      description,
+      start_date,
+      end_date,
+    });
 
-    if (!title || !deadline) {
+    if (!title || !start_date || !end_date) {
       return new Response(
-        JSON.stringify({ message: "Title and deadline are required." }),
+        JSON.stringify({
+          message: "Title and start and end dates are required.",
+        }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -22,8 +29,8 @@ export async function POST(req) {
     // Connect to the database and insert the new post
     const client = await pool.connect();
     const result = await client.query(
-      "INSERT INTO deadlines (title, deadline) VALUES ($1, $2) RETURNING *",
-      [title, deadline]
+      "INSERT INTO deadlines (title, description, start_date, end_date) VALUES ($1, $2, $3, $4) RETURNING *",
+      [title, description, start_date, end_date]
     );
     client.release();
 
