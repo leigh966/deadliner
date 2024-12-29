@@ -36,6 +36,19 @@ function getRecordRectXDimensions(
   };
 }
 
+function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
+  data.forEach((record, index) => {
+    let xDims = getRecordRectXDimensions(
+      record,
+      timeToScreenMultiplier,
+      globalStart,
+      parseInt(padding)
+    );
+    console.log(xDims);
+    context.fillRect(xDims.x, index * 50 + parseInt(padding), xDims.width, 40);
+  });
+}
+
 export default function TimeGantt(props) {
   const ref = useRef();
   if (!props.data) {
@@ -56,23 +69,13 @@ export default function TimeGantt(props) {
     const context = canvas.getContext("2d");
     context.fillStyle = "grey";
 
-    props.data.forEach((record, index) => {
-      let xDims = getRecordRectXDimensions(
-        record,
-        timeToScreenMultiplier,
-        startDate,
-        parseInt(props.padding)
-      );
-      console.log(xDims);
-      context.fillRect(
-        xDims.x,
-        index * 50 + parseInt(props.padding),
-        xDims.width,
-        40
-      );
-    });
-
-    //context.fillRect(10, 10, 100, 100);
+    drawBars(
+      context,
+      props.data,
+      parseInt(props.padding),
+      timeToScreenMultiplier,
+      startDate
+    );
   });
 
   return <canvas className={styles.timeGantt} ref={ref} {...props} />;
