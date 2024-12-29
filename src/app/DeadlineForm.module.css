@@ -30,3 +30,8 @@
 #submitButton {
   margin: 8px;
 }
+
+#btnExit {
+  width: 20px;
+  height: 20px;
+}

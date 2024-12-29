@@ -53,7 +53,9 @@ export default function DeadlineForm({ setVisible }) {
 
   return (
     <div id={styles.deadlineForm}>
-      <button onClick={() => setVisible(false)}>x</button>
+      <button id={styles.btnExit} onClick={() => setVisible(false)}>
+        x
+      </button>
       <h1>Create a New Deadline</h1>
       <form onSubmit={handleSubmit} id={styles.deadlineInnerForm}>
         <div className={styles.field}>
