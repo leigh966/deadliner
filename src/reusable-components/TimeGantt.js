@@ -4,26 +4,17 @@ import styles from "./TimeGantt.module.css";
 import { useEffect, useRef } from "react";
 
 function getStart(data) {
-  let minStartDate = new Date();
-  data.forEach((record) => {
+  return data.reduce((min, record) => {
     let currentStartDate = new Date(record.startDate);
-    console.log(currentStartDate);
-    if (currentStartDate < minStartDate) {
-      minStartDate = currentStartDate;
-    }
-  });
-  return minStartDate;
+    return currentStartDate < min ? currentStartDate : min;
+  }, new Date());
 }
 
 function getEnd(data) {
-  let maxEndDate = new Date();
-  data.forEach((record) => {
+  return data.reduce((max, record) => {
     let currentEndDate = new Date(record.endDate);
-    if (currentEndDate > maxEndDate) {
-      maxEndDate = currentEndDate;
-    }
-  });
-  return maxEndDate;
+    return currentEndDate > max ? currentEndDate : max;
+  }, new Date());
 }
 
 function getRecordRectXDimensions(
