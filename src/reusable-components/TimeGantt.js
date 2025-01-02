@@ -44,6 +44,11 @@ function getRandomColor() {
   return `rgb(${getRandomColorNumber()},${getRandomColorNumber()},${getRandomColorNumber()})`;
 }
 
+function drawBarLabel(context, xDims, y, label, color) {
+  context.fillStyle = color;
+  context.fillText(label, xDims.x, y, xDims.width);
+}
+
 function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
   data.forEach((record, index) => {
     let xDims = getRecordRectXDimensions(
@@ -56,6 +61,7 @@ function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
     if (!color) {
       color = getRandomColor();
     }
+    drawBarLabel(context, xDims, index * 50 + padding, record.label, "black");
     context.fillStyle = color;
     console.log(xDims);
     context.fillRect(xDims.x, index * 50 + padding, xDims.width, 40);

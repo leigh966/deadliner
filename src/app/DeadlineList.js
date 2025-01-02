@@ -31,6 +31,7 @@ export default async function DeadlineList() {
             return {
               startDate: dl.start_date,
               endDate: dl.end_date,
+              label: dl.title,
             };
           })}
         />
