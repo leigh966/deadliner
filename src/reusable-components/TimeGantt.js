@@ -59,19 +59,29 @@ function getShortDate(date) {
   );
 }
 
-function drawAnnotations(context, minDate, maxDate, width, height, padding) {
-  let notch_thickness = 3;
-  let notch_height = 10;
-  let line_thickness = 3;
-  let line_bottom = 0;
-  let notch_y =
-    height - padding - line_bottom - line_thickness / 2 - notch_height / 2;
-  let line_y = height - padding - (line_bottom + line_thickness);
-  let labelWidth = 40;
+function drawAnnotations(
+  context,
+  minDate,
+  maxDate,
+  width,
+  height,
+  padding,
+  notchThickness = 3,
+  notchHeight = 10,
+  lineThickness = 3,
+  labelWidth = 40
+) {
+  let notch_y = height - padding - lineThickness / 2 - notchHeight / 2;
+  let line_y = height - padding - +lineThickness;
 
   context.fillRect(padding, line_y, width - padding * 2, 3);
-  context.fillRect(padding, notch_y, notch_thickness, notch_height); // start notch
-  context.fillRect(width - padding - 3, notch_y, notch_thickness, notch_height); // end notch
+  context.fillRect(padding, notch_y, notchThickness, notchHeight); // start notch
+  context.fillRect(
+    width - padding - notchThickness,
+    notch_y,
+    notchThickness,
+    notchHeight
+  ); // end notch
   context.fillText(
     getShortDate(minDate),
     padding - labelWidth / 2,
