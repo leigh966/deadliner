@@ -49,7 +49,15 @@ function drawBarLabel(context, xDims, y, label, color) {
   context.fillText(label, xDims.x, y, xDims.width);
 }
 
-function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
+function drawBars(
+  context,
+  data,
+  padding,
+  timeToScreenMultiplier,
+  globalStart,
+  barHeight,
+  spacing = 10
+) {
   data.forEach((record, index) => {
     let xDims = getRecordRectXDimensions(
       record,
@@ -61,10 +69,11 @@ function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
     if (!color) {
       color = getRandomColor();
     }
-    drawBarLabel(context, xDims, index * 50 + padding, record.label, "black");
+    const y = index * (barHeight + spacing) + padding;
+    drawBarLabel(context, xDims, y, record.label, "black");
     context.fillStyle = color;
     console.log(xDims);
-    context.fillRect(xDims.x, index * 50 + padding, xDims.width, 40);
+    context.fillRect(xDims.x, y, xDims.width, barHeight);
   });
 }
 
@@ -129,7 +138,12 @@ export default function TimeGantt(props) {
     (props.width - totalPadding * 2) /
     (endDate.getTime() - startDate.getTime());
 
-  console.log(timeToScreenMultiplier);
+  const spacing = 10;
+
+  const barHeight = props.barHeight
+    ? props.barHeight
+    : (props.height - props.padding * 2) / (props.data.length + spacing);
+  console.log(barHeight);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -140,7 +154,8 @@ export default function TimeGantt(props) {
       props.data,
       totalPadding,
       timeToScreenMultiplier,
-      startDate
+      startDate,
+      barHeight
     );
     context.fillStyle = "grey";
     if (props.annotationColor) {
