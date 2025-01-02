@@ -138,7 +138,7 @@ export default function TimeGantt(props) {
     (props.width - totalPadding * 2) /
     (endDate.getTime() - startDate.getTime());
 
-  const spacing = 10;
+  const spacing = props.spacing ? props.spacing : 10;
 
   const barHeight = props.barHeight
     ? props.barHeight
@@ -155,7 +155,8 @@ export default function TimeGantt(props) {
       totalPadding,
       timeToScreenMultiplier,
       startDate,
-      barHeight
+      barHeight,
+      spacing
     );
     context.fillStyle = "grey";
     if (props.annotationColor) {
