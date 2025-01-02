@@ -36,6 +36,14 @@ function getRecordRectXDimensions(
   };
 }
 
+function getRandomColorNumber() {
+  return Math.floor(Math.random() * 256);
+}
+
+function getRandomColor() {
+  return `rgb(${getRandomColorNumber()},${getRandomColorNumber()},${getRandomColorNumber()})`;
+}
+
 function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
   data.forEach((record, index) => {
     let xDims = getRecordRectXDimensions(
@@ -44,6 +52,11 @@ function drawBars(context, data, padding, timeToScreenMultiplier, globalStart) {
       globalStart,
       padding
     );
+    let color = record.color;
+    if (!color) {
+      color = getRandomColor();
+    }
+    context.fillStyle = color;
     console.log(xDims);
     context.fillRect(xDims.x, index * 50 + padding, xDims.width, 40);
   });
@@ -115,7 +128,6 @@ export default function TimeGantt(props) {
   useEffect(() => {
     const canvas = ref.current;
     const context = canvas.getContext("2d");
-    context.fillStyle = "grey";
 
     drawBars(
       context,
@@ -124,7 +136,10 @@ export default function TimeGantt(props) {
       timeToScreenMultiplier,
       startDate
     );
-
+    context.fillStyle = "grey";
+    if (props.annotationColor) {
+      context.fillStyle = props.annotationColor;
+    }
     drawAnnotations(
       context,
       startDate,
