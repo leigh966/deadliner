@@ -64,7 +64,11 @@ export default async function DeadlineList() {
               </tr>
             ))
           ) : (
-            <p>No deadlines available.</p>
+            <tr>
+              <td colSpan={5} className={styles.errorCell}>
+                No deadlines available.
+              </td>
+            </tr>
           )}
         </tbody>
       </table>
