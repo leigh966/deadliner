@@ -4,13 +4,23 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./DeadlineForm.module.css";
 
+function formatDate(date) {
+  const out = new Date(date).toISOString().split("T")[0];
+  console.log(out);
+  return out;
+}
+
 export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
   const [title, setTitle] = useState(record ? record.title : "");
   const [description, setDescription] = useState(
     record ? record.description : ""
   );
-  const [startDate, setStartDate] = useState(record ? record.startDate : "");
-  const [endDate, setEndDate] = useState(record ? record.endDate : "");
+  const [startDate, setStartDate] = useState(
+    record ? formatDate(record.start_date) : ""
+  );
+  const [endDate, setEndDate] = useState(
+    record ? formatDate(record.end_date) : ""
+  );
   const [message, setMessage] = useState("");
   const router = useRouter();
 
