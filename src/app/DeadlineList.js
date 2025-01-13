@@ -73,19 +73,4 @@ export default async function DeadlineList() {
       </table>
     </>
   );
-
-  // return (
-  //   <ul>
-  //     {deadlines.length > 0 ? (
-  //       deadlines.map((dl) => (
-  //         <li key={dl.id}>
-  //           <h3>{dl.title}</h3>
-  //           <p>{dl.deadline.toString()}</p>
-  //         </li>
-  //       ))
-  //     ) : (
-  //       <p>No deadlines available.</p>
-  //     )}
-  //   </ul>
-  // );
 }
