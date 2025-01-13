@@ -43,6 +43,7 @@ export default function DeadlineForm({ setVisible }) {
         setStartDate("");
         setEndDate("");
         router.refresh();
+        setVisible(false);
       } else {
         setMessage("Error creating deadline.");
       }
