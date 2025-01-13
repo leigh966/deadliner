@@ -4,11 +4,13 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./DeadlineForm.module.css";
 
-export default function DeadlineForm({ setVisible, header, onSubmit }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
+  const [title, setTitle] = useState(record ? record.title : "");
+  const [description, setDescription] = useState(
+    record ? record.description : ""
+  );
+  const [startDate, setStartDate] = useState(record ? record.startDate : "");
+  const [endDate, setEndDate] = useState(record ? record.endDate : "");
   const [message, setMessage] = useState("");
   const router = useRouter();
 
@@ -20,6 +22,16 @@ export default function DeadlineForm({ setVisible, header, onSubmit }) {
     router.refresh();
   };
 
+  let deadlineData = {
+    title,
+    description,
+    start_date: startDate,
+    end_date: endDate,
+  };
+  if (record) {
+    deadlineData.id = record.id;
+  }
+
   return (
     <div id={styles.deadlineForm}>
       <button id={styles.btnExit} onClick={() => setVisible(false)}>
@@ -28,18 +40,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit }) {
       <h1>{header}</h1>
       <form
         onSubmit={(e) =>
-          onSubmit(
-            e,
-            {
-              title,
-              description,
-              start_date: startDate,
-              end_date: endDate,
-            },
-            setMessage,
-            refresh,
-            setVisible
-          )
+          onSubmit(e, deadlineData, setMessage, refresh, setVisible)
         }
         id={styles.deadlineInnerForm}
       >

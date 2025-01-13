@@ -1,12 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import EditDeadlineForm from "./EditDeadlineForm";
 
-export default function DeadlineActionCell(props) {
+export default function DeadlineActionCell({ record }) {
   const router = useRouter();
-  console.log(props.deadlineId);
+
   async function handleDelete() {
-    const data = { id: props.deadlineId };
+    const data = { id: record.id };
     const bodyData = JSON.stringify(data);
     console.log(bodyData);
     try {
@@ -29,9 +31,15 @@ export default function DeadlineActionCell(props) {
     }
   }
 
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <td>
+      <button onClick={() => setShowForm(true)}>Edit</button>
       <button onClick={() => handleDelete()}>Delete</button>
+      {showForm ? (
+        <EditDeadlineForm setVisible={setShowForm} record={record} />
+      ) : null}
     </td>
   );
 }

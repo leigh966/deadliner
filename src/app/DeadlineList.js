@@ -60,7 +60,7 @@ export default async function DeadlineList() {
                 <td className={styles.date}>
                   {dl.end_date.toString().substring(0, 15)}
                 </td>
-                <DeadlineActionCell deadlineId={dl.id} />
+                <DeadlineActionCell record={dl} />
               </tr>
             ))
           ) : (

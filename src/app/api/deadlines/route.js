@@ -74,3 +74,53 @@ export async function DELETE(req) {
     );
   }
 }
+
+export async function PUT(req) {
+  console.log("update ran");
+  try {
+    const dlJson = await req.json();
+    console.log(dlJson);
+    const { title, description, start_date, end_date, id } = dlJson;
+
+    // Log received data
+    console.log("Received post data:", {
+      title,
+      description,
+      start_date,
+      end_date,
+    });
+
+    if (!title || !start_date || !end_date) {
+      return new Response(
+        JSON.stringify({
+          message: "Title and start and end dates are required.",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Connect to the database and insert the new post
+    const client = await pool.connect();
+    const result = await client.query(
+      "UPDATE deadlines SET title=$1, description=$2, start_date=$3, end_date=$4 WHERE id=$5",
+      [title, description, start_date, end_date, id]
+    );
+    client.release();
+
+    return new Response("Done", {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ message: "Error updating the database." }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+}
