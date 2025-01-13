@@ -124,6 +124,11 @@ function drawAnnotations(
   );
 }
 
+function drawBackground(context, color, width, height) {
+  context.fillStyle = color;
+  context.fillRect(0, 0, width, height);
+}
+
 export default function TimeGantt({
   width = 400,
   spacing = 10,
@@ -132,6 +137,7 @@ export default function TimeGantt({
   data,
   padding = 0,
   annotationColor = "grey",
+  backgroundColor = "white",
 }) {
   const ref = useRef();
   if (!data) {
@@ -152,6 +158,8 @@ export default function TimeGantt({
   useEffect(() => {
     const canvas = ref.current;
     const context = canvas.getContext("2d");
+
+    drawBackground(context, backgroundColor, width, height);
 
     drawBars(
       context,
