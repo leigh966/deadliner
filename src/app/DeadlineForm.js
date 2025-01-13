@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./DeadlineForm.module.css";
 
-export default function DeadlineForm({ setVisible }) {
+export default function DeadlineForm({ setVisible, header, onSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -12,44 +12,12 @@ export default function DeadlineForm({ setVisible }) {
   const [message, setMessage] = useState("");
   const router = useRouter();
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Data to be sent to the backend API
-    const deadlineData = {
-      title,
-      description,
-      start_date: startDate,
-      end_date: endDate,
-    };
-    console.log(deadlineData);
-    const bodyData = JSON.stringify(deadlineData);
-    console.log(bodyData);
-    try {
-      const response = await fetch("/api/deadlines", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: bodyData,
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setMessage("deadline created successfully!");
-        setTitle("");
-        setDescription("");
-        setStartDate("");
-        setEndDate("");
-        router.refresh();
-        setVisible(false);
-      } else {
-        setMessage("Error creating deadline.");
-      }
-    } catch (error) {
-      setMessage("Error: " + error.message);
-    }
+  const refresh = () => {
+    setTitle("");
+    setDescription("");
+    setStartDate("");
+    setEndDate("");
+    router.refresh();
   };
 
   return (
@@ -57,8 +25,24 @@ export default function DeadlineForm({ setVisible }) {
       <button id={styles.btnExit} onClick={() => setVisible(false)}>
         x
       </button>
-      <h1>Create a New Deadline</h1>
-      <form onSubmit={handleSubmit} id={styles.deadlineInnerForm}>
+      <h1>{header}</h1>
+      <form
+        onSubmit={(e) =>
+          onSubmit(
+            e,
+            {
+              title,
+              description,
+              start_date: startDate,
+              end_date: endDate,
+            },
+            setMessage,
+            refresh,
+            setVisible
+          )
+        }
+        id={styles.deadlineInnerForm}
+      >
         <div className={styles.field}>
           <label htmlFor="title">Title:</label>
           <input

@@ -1,6 +1,6 @@
 "use client";
 
-import DeadlineForm from "./DeadlineForm";
+import CreateDeadlineForm from "./CreateDeadlineForm";
 import { useState } from "react";
 import styles from "./ClientPart.module.css";
 
@@ -8,7 +8,7 @@ export default function ClientPart() {
   const [show, setShow] = useState(false);
   return (
     <div id={styles.clientPart}>
-      {show ? <DeadlineForm setVisible={setShow} /> : null}
+      {show ? <CreateDeadlineForm setVisible={setShow} /> : null}
       <button
         onClick={() => {
           setShow(true);
