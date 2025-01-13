@@ -124,26 +124,30 @@ function drawAnnotations(
   );
 }
 
-export default function TimeGantt(props) {
+export default function TimeGantt({
+  width = 400,
+  spacing = 10,
+  barHeight = null,
+  height = 400,
+  data,
+  padding = 0,
+  annotationColor = "grey",
+}) {
   const ref = useRef();
-  if (!props.data) {
+  if (!data) {
     throw Error("Data missing");
   }
 
-  const startDate = getStart(props.data);
-  const endDate = getEnd(props.data);
+  const startDate = getStart(data);
+  const endDate = getEnd(data);
   const BUILT_IN_PADDING = 50;
-  const totalPadding = parseInt(props.padding) + BUILT_IN_PADDING;
+  const totalPadding = parseInt(padding) + BUILT_IN_PADDING;
   const timeToScreenMultiplier =
-    (props.width - totalPadding * 2) /
-    (endDate.getTime() - startDate.getTime());
+    (width - totalPadding * 2) / (endDate.getTime() - startDate.getTime());
 
-  const spacing = props.spacing ? props.spacing : 10;
-
-  const barHeight = props.barHeight
-    ? props.barHeight
-    : (props.height - props.padding * 2) / (props.data.length + spacing);
-  console.log(barHeight);
+  const internalBarHeight = barHeight
+    ? barHeight
+    : (height - padding * 2) / (data.length + spacing);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -151,26 +155,33 @@ export default function TimeGantt(props) {
 
     drawBars(
       context,
-      props.data,
+      data,
       totalPadding,
       timeToScreenMultiplier,
       startDate,
-      barHeight,
+      internalBarHeight,
       spacing
     );
     context.fillStyle = "grey";
-    if (props.annotationColor) {
-      context.fillStyle = props.annotationColor;
+    if (annotationColor) {
+      context.fillStyle = annotationColor;
     }
     drawAnnotations(
       context,
       startDate,
       endDate,
-      parseInt(props.width),
-      parseInt(props.height),
+      parseInt(width),
+      parseInt(height),
       totalPadding
     );
   });
 
-  return <canvas className={styles.timeGantt} ref={ref} {...props} />;
+  return (
+    <canvas
+      className={styles.timeGantt}
+      ref={ref}
+      width={width}
+      height={height}
+    />
+  );
 }
