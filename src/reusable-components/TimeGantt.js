@@ -135,7 +135,7 @@ export default function TimeGantt({
   barHeight = null,
   height = 400,
   data,
-  padding = 0,
+  padding = 25,
   annotationColor = "grey",
   backgroundColor = "white",
 }) {
@@ -146,10 +146,8 @@ export default function TimeGantt({
 
   const startDate = getStart(data);
   const endDate = getEnd(data);
-  const BUILT_IN_PADDING = 50;
-  const totalPadding = parseInt(padding) + BUILT_IN_PADDING;
   const timeToScreenMultiplier =
-    (width - totalPadding * 2) / (endDate.getTime() - startDate.getTime());
+    (width - padding * 2) / (endDate.getTime() - startDate.getTime());
 
   const internalBarHeight = barHeight
     ? barHeight
@@ -164,7 +162,7 @@ export default function TimeGantt({
     drawBars(
       context,
       data,
-      totalPadding,
+      padding,
       timeToScreenMultiplier,
       startDate,
       internalBarHeight,
@@ -180,7 +178,7 @@ export default function TimeGantt({
       endDate,
       parseInt(width),
       parseInt(height),
-      totalPadding
+      padding
     );
   });
 
