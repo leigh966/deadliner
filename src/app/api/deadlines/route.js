@@ -1,29 +1,44 @@
 import pool from "../../../lib/db"; // Import the database connection
 
+function getDataRejectionResponse(message) {
+  return new Response(
+    JSON.stringify({
+      message: message,
+    }),
+    {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
+
+function validateAgainstConstraints(title, start_date, end_date) {
+  if (!title || !start_date || !end_date) {
+    return getDataRejectionResponse(
+      "Title and start and end dates are required."
+    );
+  }
+  console.log("title length: " + title.length);
+  if (title.length > 30) {
+    return getDataRejectionResponse("Title is too long.");
+  }
+  return null;
+}
+
 export async function POST(req) {
   try {
     const dlJson = await req.json();
     console.log(dlJson);
     const { title, description, start_date, end_date } = dlJson;
 
-    // Log received data
-    console.log("Received post data:", {
+    const constraintError = validateAgainstConstraints(
       title,
-      description,
       start_date,
-      end_date,
-    });
+      end_date
+    );
 
-    if (!title || !start_date || !end_date) {
-      return new Response(
-        JSON.stringify({
-          message: "Title and start and end dates are required.",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    if (constraintError) {
+      return constraintError;
     }
 
     // Connect to the database and insert the new post
@@ -82,24 +97,14 @@ export async function PUT(req) {
     console.log(dlJson);
     const { title, description, start_date, end_date, id } = dlJson;
 
-    // Log received data
-    console.log("Received post data:", {
+    const constraintError = validateAgainstConstraints(
+      req,
       title,
-      description,
       start_date,
-      end_date,
-    });
-
-    if (!title || !start_date || !end_date) {
-      return new Response(
-        JSON.stringify({
-          message: "Title and start and end dates are required.",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      end_date
+    );
+    if (constraintError) {
+      return constraintError;
     }
 
     // Connect to the database and insert the new post

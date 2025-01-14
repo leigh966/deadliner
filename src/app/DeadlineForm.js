@@ -61,6 +61,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            maxLength="30"
             required
           />
         </div>
