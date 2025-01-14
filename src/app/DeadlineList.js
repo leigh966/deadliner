@@ -1,7 +1,7 @@
 import React from "react";
 import pool from "../lib/db";
 import styles from "./DeadlineList.module.css";
-import TimeGantt from "@/reusable-components/TimeGantt";
+import TimeGantt from "@/reusable-components/TimeGantt/TimeGantt";
 import DeadlineActionCell from "./DeadlineActionCell";
 
 // This is a Server Component in Next.js that queries the PostgreSQL database
