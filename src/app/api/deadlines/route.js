@@ -1,15 +1,19 @@
 import pool from "../../../lib/db"; // Import the database connection
 
-function getDataRejectionResponse(message) {
+function getStandardResponse(message, status) {
   return new Response(
     JSON.stringify({
       message: message,
     }),
     {
-      status: 400,
+      status: status,
       headers: { "Content-Type": "application/json" },
     }
   );
+}
+
+function getDataRejectionResponse(message) {
+  return getStandardResponse("Constraint violation: " + message, 400);
 }
 
 function validateAgainstConstraints(title, start_date, end_date) {
@@ -23,6 +27,13 @@ function validateAgainstConstraints(title, start_date, end_date) {
     return getDataRejectionResponse("Title is too long.");
   }
   return null;
+}
+
+async function runQuery(query, values) {
+  const client = await pool.connect();
+  const result = await client.query(query, values);
+  client.release();
+  return result;
 }
 
 export async function POST(req) {
@@ -41,26 +52,17 @@ export async function POST(req) {
       return constraintError;
     }
 
-    // Connect to the database and insert the new post
-    const client = await pool.connect();
-    const result = await client.query(
+    const result = await runQuery(
       "INSERT INTO deadlines (title, description, start_date, end_date) VALUES ($1, $2, $3, $4) RETURNING *",
       [title, description, start_date, end_date]
     );
-    client.release();
 
     return new Response(JSON.stringify(result.rows[0]), {
       status: 201,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error inserting post into the database." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return getStandardResponse("Error inserting into the database.", 500);
   }
 }
 
@@ -70,8 +72,7 @@ export async function DELETE(req) {
 
     const deadlineId = dlJson.id;
 
-    const client = await pool.connect();
-    const result = await client.query("DELETE FROM deadlines WHERE id=$1", [
+    const result = await runQuery("DELETE FROM deadlines WHERE id=$1", [
       deadlineId,
     ]);
 
@@ -80,13 +81,7 @@ export async function DELETE(req) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error deleting post from the database:" }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return getStandardResponse("Error deleting from the database.", 500);
   }
 }
 
@@ -107,25 +102,16 @@ export async function PUT(req) {
       return constraintError;
     }
 
-    // Connect to the database and insert the new post
-    const client = await pool.connect();
-    const result = await client.query(
+    await runQuery(
       "UPDATE deadlines SET title=$1, description=$2, start_date=$3, end_date=$4 WHERE id=$5",
       [title, description, start_date, end_date, id]
     );
-    client.release();
 
     return new Response("Done", {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error updating the database." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return getStandardResponse("Error updating the database.", 500);
   }
 }
