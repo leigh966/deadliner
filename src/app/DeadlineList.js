@@ -25,8 +25,8 @@ export default async function DeadlineList() {
     <>
       {deadlines.length > 0 ? (
         <TimeGantt
-          width="800"
-          height="400"
+          width="80%"
+          height="30%"
           data={deadlines.map((dl) => {
             return {
               startDate: dl.start_date,

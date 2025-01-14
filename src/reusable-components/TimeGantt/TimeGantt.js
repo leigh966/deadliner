@@ -1,9 +1,10 @@
 "use client";
 
 import styles from "./TimeGantt.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { drawBars } from "./GanttBar";
 import { drawAnnotations } from "./GanttAnnotations";
+import { getRandomColor } from "../Colors";
 
 function getStart(data) {
   return data.reduce((min, record) => {
@@ -38,25 +39,58 @@ export default function TimeGantt({
   if (!data) {
     throw Error("Data missing");
   }
+  let myWidth = width;
+  let myHeight = height;
 
-  const startDate = getStart(data);
-  const endDate = getEnd(data);
-  const timeToScreenMultiplier =
-    (width - padding * 2) / (endDate.getTime() - startDate.getTime());
+  const [screenSize, setScreenSize] = useState({ width: 192, height: 108 });
 
-  const calculatBarHeight = () => {
-    const totalSpacing = data.length * spacing;
-    const heightRealestate = height - padding * 2 - totalSpacing;
-    return heightRealestate / data.length;
-  };
+  function percentofValue(val, percent) {
+    return (val / 100) * percent;
+  }
 
-  const internalBarHeight = barHeight ? barHeight : calculatBarHeight();
+  if (myWidth.toString().includes("%")) {
+    myWidth = percentofValue(
+      screenSize.width,
+      myWidth.toString().split("%")[0]
+    );
+  }
+
+  if (myHeight.toString().includes("%")) {
+    myHeight = percentofValue(
+      screenSize.height,
+      myHeight.toString().split("%")[0]
+    );
+  }
 
   useEffect(() => {
+    setScreenSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", () =>
+      setScreenSize({ width: window.innerWidth, height: window.innerHeight })
+    );
+    data.forEach((element) => {
+      if (!element.color) {
+        element.color = getRandomColor();
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const startDate = getStart(data);
+    const endDate = getEnd(data);
+    const timeToScreenMultiplier =
+      (myWidth - padding * 2) / (endDate.getTime() - startDate.getTime());
+
+    const calculatBarHeight = () => {
+      const totalSpacing = data.length * spacing;
+      const heightRealestate = myHeight - padding * 2 - totalSpacing;
+      return heightRealestate / data.length;
+    };
+
+    const internalBarHeight = barHeight ? barHeight : calculatBarHeight();
     const canvas = ref.current;
     const context = canvas.getContext("2d");
 
-    drawBackground(context, backgroundColor, width, height);
+    drawBackground(context, backgroundColor, myWidth, myHeight);
 
     drawBars(
       context,
@@ -66,7 +100,7 @@ export default function TimeGantt({
       startDate,
       internalBarHeight,
       spacing,
-      width
+      myWidth
     );
     context.fillStyle = "grey";
     if (annotationColor) {
@@ -76,8 +110,8 @@ export default function TimeGantt({
       context,
       startDate,
       endDate,
-      parseInt(width),
-      parseInt(height),
+      parseInt(myWidth),
+      parseInt(myHeight),
       padding
     );
   });
@@ -86,8 +120,8 @@ export default function TimeGantt({
     <canvas
       className={styles.timeGantt}
       ref={ref}
-      width={width}
-      height={height}
+      width={myWidth}
+      height={myHeight}
     />
   );
 }
