@@ -46,9 +46,11 @@ export function drawBars(
       color = getRandomColor();
     }
     const y = index * (barHeight + spacing) + padding;
-    drawBarLabel(context, xDims.x, y, record.label, "black", screenWidth);
+
     context.fillStyle = color;
     console.log(xDims);
     context.fillRect(xDims.x, y, xDims.width, barHeight);
+
+    drawBarLabel(context, xDims.x, y, record.label, "black", screenWidth);
   });
 }
