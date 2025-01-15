@@ -1,12 +1,10 @@
 import styles from "./page.module.css";
-import DeadlineList from "./DeadlineList";
-import ClientPart from "./ClientPart";
+import Dashboard from "./Dashboard";
+import Login from "./Login";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <DeadlineList />
-      <ClientPart />
-    </div>
-  );
+  let pageToReturn = <Dashboard />;
+  //let pageToReturn = <Login />;
+
+  return <div className={styles.page}>{pageToReturn}</div>;
 }

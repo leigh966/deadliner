@@ -1,0 +1,11 @@
+.aLink {
+  color: blue;
+}
+
+.aLink:focus {
+  color: blueviolet;
+}
+
+.aLink:hover {
+  text-decoration: underline;
+}
