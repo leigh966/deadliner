@@ -3,6 +3,7 @@ import pool from "../lib/db";
 import styles from "./DeadlineList.module.css";
 import TimeGantt from "@/reusable-components/TimeGantt/TimeGantt";
 import DeadlineActionCell from "./DeadlineActionCell";
+import { getShortDate } from "@/reusable-components/Dates";
 
 // This is a Server Component in Next.js that queries the PostgreSQL database
 async function fetchData() {
@@ -26,7 +27,7 @@ export default async function DeadlineList() {
       {deadlines.length > 0 ? (
         <TimeGantt
           width="80%"
-          height="30%"
+          height="40%"
           data={deadlines.map((dl) => {
             return {
               startDate: dl.start_date,
@@ -54,12 +55,12 @@ export default async function DeadlineList() {
                 <td className={styles.title}>{dl.title}</td>
                 <td className={styles.description}>{dl.description}</td>
                 <td className={styles.date}>
-                  {dl.start_date.toString().substring(0, 15)}
+                  {getShortDate(new Date(dl.start_date))}
                 </td>
                 <td className={styles.date}>
-                  {dl.end_date.toString().substring(0, 15)}
+                  {getShortDate(new Date(dl.end_date))}
                 </td>
-                <DeadlineActionCell record={dl} />
+                <DeadlineActionCell record={dl} className={styles.actionCell} />
               </tr>
             ))
           ) : (

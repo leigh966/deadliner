@@ -1,15 +1,19 @@
 .title {
-  width: 150px;
+  width: 30%;
   text-align: center;
 }
 
 .description {
-  width: 300px;
+  width: 40%;
 }
 
 .date {
-  width: 150px;
+  width: 10%;
   text-align: center;
+}
+
+.actionCell {
+  width: 7%;
 }
 
 .errorCell {

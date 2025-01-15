@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import EditDeadlineForm from "./EditDeadlineForm";
 
-export default function DeadlineActionCell({ record }) {
+export default function DeadlineActionCell({ record, className }) {
   const router = useRouter();
 
   async function handleDelete() {
@@ -34,7 +34,7 @@ export default function DeadlineActionCell({ record }) {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <td>
+    <td className={className}>
       <button onClick={() => setShowForm(true)}>Edit</button>
       <button onClick={() => handleDelete()}>Delete</button>
       {showForm ? (
