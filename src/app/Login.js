@@ -9,6 +9,7 @@ export default function Login() {
   const router = useRouter();
   async function continueAsGuest(e) {
     //send request for cookie
+    e.preventDefault();
     const response = await fetch("/api/auth", {
       method: "POST",
       headers: {
@@ -17,7 +18,7 @@ export default function Login() {
       body: JSON.stringify({}),
     });
     if (response.status == 201) {
-      router.reload;
+      router.refresh();
     }
   }
   return (
