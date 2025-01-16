@@ -3,6 +3,7 @@
 import Link from "next/link";
 import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
+import styles from "./Login.module.css";
 
 export default function Login() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Login() {
     }
   }
   return (
-    <form>
+    <form className={styles.form}>
       <h2>Login</h2>
       <input type="text" placeholder="Username" />
       <input type="password" placeholder="Password" />

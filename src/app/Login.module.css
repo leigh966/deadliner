@@ -1,0 +1,9 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.form * {
+  padding: 10px;
+  margin: 10px;
+}
