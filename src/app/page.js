@@ -11,6 +11,7 @@ export default async function Home(props) {
   //     <p>Value: {cookie.value}</p>
   //   </div>
   // ));
+
   let pageToReturn = <Login />;
   if (cookieStore.get("loggedIn")) {
     pageToReturn = <Dashboard />;
