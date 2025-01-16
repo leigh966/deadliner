@@ -10,7 +10,7 @@ export default function Login() {
   async function continueAsGuest(e) {
     //send request for cookie
     e.preventDefault();
-    const response = await fetch("/api/auth", {
+    const response = await fetch("/api/auth/guest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

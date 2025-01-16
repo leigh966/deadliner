@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import { cookies } from "next/headers";
+import { runQuery } from "./api/query";
 
 export default async function Home(props) {
   const cookieStore = await cookies();
@@ -13,7 +14,14 @@ export default async function Home(props) {
   // ));
 
   let pageToReturn = <Login />;
-  if (cookieStore.get("loggedIn")) {
+  if (
+    cookieStore.get("session") &&
+    (
+      await runQuery("SELECT * FROM users WHERE cookie=$1", [
+        cookieStore.get("session").value,
+      ])
+    ).rowCount == 1
+  ) {
     pageToReturn = <Dashboard />;
   } else {
   }
