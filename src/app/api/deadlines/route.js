@@ -91,7 +91,6 @@ export async function DELETE(req) {
 }
 
 export async function PUT(req) {
-  console.log("update ran");
   try {
     const dlJson = await req.json();
     console.log(dlJson);
@@ -108,8 +107,15 @@ export async function PUT(req) {
     }
 
     await runQuery(
-      "UPDATE deadlines SET title=$1, description=$2, start_date=$3, end_date=$4 WHERE id=$5",
-      [title, description, start_date, end_date, id]
+      "UPDATE deadlines SET title=$1, description=$2, start_date=$3, end_date=$4 WHERE id=$5 AND user_id=$6",
+      [
+        title,
+        description,
+        start_date,
+        end_date,
+        id,
+        await getUserId((await cookies()).get("session").value),
+      ]
     );
 
     return new Response("Done", {
