@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
 import pool from "../../../lib/db"; // Import the database connection
 
+import { getUserId } from "../query";
+
 function getStandardResponse(message, status) {
   return new Response(
     JSON.stringify({
@@ -35,15 +37,6 @@ async function runQuery(query, values) {
   const result = await client.query(query, values);
   client.release();
   return result;
-}
-
-async function getUserId(session) {
-  let result = await runQuery("SELECT id FROM users WHERE cookie=$1", [
-    session,
-  ]);
-  console.log("id fetched");
-  console.log(result.rows);
-  return result.rows[0].id;
 }
 
 export async function POST(req) {

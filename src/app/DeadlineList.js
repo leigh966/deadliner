@@ -4,24 +4,20 @@ import styles from "./DeadlineList.module.css";
 import TimeGantt from "@/reusable-components/TimeGantt/TimeGantt";
 import DeadlineActionCell from "./DeadlineActionCell";
 import { getShortDate } from "@/reusable-components/Dates";
+import { runQuery, getUserId } from "./api/query";
+import { cookies } from "next/headers";
 
 // This is a Server Component in Next.js that queries the PostgreSQL database
-async function fetchData() {
-  try {
-    const client = await pool.connect(); // Get a client from the pool
-    const result = await client.query("SELECT * FROM deadlines"); // Query the database
-    client.release(); // Release the client back to the pool
-
-    console.log("success");
-    return result.rows; // Return the rows (deadlines) from the database
-  } catch (error) {
-    console.error("Error fetching data from PostgreSQL:", error);
-    return []; // Return an empty array if there's an error
-  }
+async function fetchData(session_id) {
+  const user_id = await getUserId(session_id);
+  const data = await runQuery("SELECT * FROM deadlines WHERE user_id=$1", [
+    user_id,
+  ]);
+  return data.rows;
 }
 
 export default async function DeadlineList() {
-  const deadlines = await fetchData();
+  const deadlines = await fetchData((await cookies()).get("session").value);
 
   return (
     <>

@@ -5,3 +5,12 @@ export async function runQuery(query, values) {
   client.release();
   return result;
 }
+
+export async function getUserId(session) {
+  let result = await runQuery("SELECT id FROM users WHERE cookie=$1", [
+    session,
+  ]);
+  console.log("id fetched");
+  console.log(result.rows);
+  return result.rows[0].id;
+}
