@@ -11,6 +11,7 @@ export default function CreateDeadlineForm(props) {
     try {
       const response = await fetch("/api/deadlines", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

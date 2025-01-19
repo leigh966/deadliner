@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import pool from "../../../lib/db"; // Import the database connection
 
 function getStandardResponse(message, status) {
@@ -36,7 +37,18 @@ async function runQuery(query, values) {
   return result;
 }
 
+async function getUserId(session) {
+  let result = await runQuery("SELECT id FROM users WHERE cookie=$1", [
+    session,
+  ]);
+  console.log("id fetched");
+  console.log(result.rows);
+  return result.rows[0].id;
+}
+
 export async function POST(req) {
+  let cookieStore = await cookies();
+  let session_id = cookieStore.get("session").value;
   try {
     const dlJson = await req.json();
     console.log(dlJson);
@@ -53,8 +65,8 @@ export async function POST(req) {
     }
 
     const result = await runQuery(
-      "INSERT INTO deadlines (title, description, start_date, end_date) VALUES ($1, $2, $3, $4) RETURNING *",
-      [title, description, start_date, end_date]
+      "INSERT INTO deadlines (title, description, start_date, end_date, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [title, description, start_date, end_date, await getUserId(session_id)]
     );
 
     return new Response(JSON.stringify(result.rows[0]), {

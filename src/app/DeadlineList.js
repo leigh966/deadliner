@@ -12,6 +12,7 @@ async function fetchData() {
     const result = await client.query("SELECT * FROM deadlines"); // Query the database
     client.release(); // Release the client back to the pool
 
+    console.log("success");
     return result.rows; // Return the rows (deadlines) from the database
   } catch (error) {
     console.error("Error fetching data from PostgreSQL:", error);
