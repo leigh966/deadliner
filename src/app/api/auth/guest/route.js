@@ -1,12 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { generateSessionId } from "../session";
+import { generateSessionCookie, generateSessionId } from "../session";
 import { runQuery } from "../../query";
 
 export async function POST(req) {
-  const cookieStore = await cookies();
-
   const sessionId = generateSessionId();
 
   // create the user
@@ -16,7 +14,8 @@ export async function POST(req) {
       [sessionId, 1, sessionId]
     );
 
-    cookieStore.set("session", sessionId);
+    generateSessionCookie(await cookies(), sessionId);
+
     return new Response(JSON.stringify({}), {
       status: 201,
       headers: { "Content-Type": "application/json" },
