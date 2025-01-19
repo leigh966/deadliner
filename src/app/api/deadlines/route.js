@@ -77,9 +77,10 @@ export async function DELETE(req) {
 
     const deadlineId = dlJson.id;
 
-    const result = await runQuery("DELETE FROM deadlines WHERE id=$1", [
-      deadlineId,
-    ]);
+    const result = await runQuery(
+      "DELETE FROM deadlines WHERE id=$1 AND user_id=$2",
+      [deadlineId, await getUserId((await cookies()).get("session").value)]
+    );
 
     return new Response(JSON.stringify(result.rows[0]), {
       status: 204,
