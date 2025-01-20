@@ -46,7 +46,7 @@ export async function POST(req) {
 
   const userId = await createUser(
     userJson.username,
-    hashPassword(userJson.password)
+    await hashPassword(userJson.password)
   );
 
   sendEmail(userId, userJson.username);

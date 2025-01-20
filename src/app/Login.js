@@ -26,13 +26,8 @@ export default function Login() {
     }
   }
 
-  async function handleRegister(e) {
-    const formData = new FormData(e.target);
-    if (formData.get("password") != formData.get("confirmPassword")) {
-      alert("Passwords must match");
-      return;
-    }
-    const response = await fetch("/api/auth/user/register", {
+  async function postAuth(url, formData) {
+    return await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,6 +37,15 @@ export default function Login() {
         password: formData.get("password"),
       }),
     });
+  }
+
+  async function handleRegister(e) {
+    const formData = new FormData(e.target);
+    if (formData.get("password") != formData.get("confirmPassword")) {
+      alert("Passwords must match");
+      return;
+    }
+    const response = await postAuth("/api/auth/user/register", formData);
     if (response.status == 200) {
       // show message to check email
       setEmailSentMessage(
@@ -52,13 +56,25 @@ export default function Login() {
     }
   }
 
+  async function handleLogin(e) {
+    const formData = new FormData(e.target);
+    const response = await postAuth("/api/auth/user", formData);
+    if (response.status == 200) {
+      // logged in
+      router.refresh();
+    } else {
+      alert("Error");
+    }
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (register) {
       handleRegister(e);
+    } else {
+      handleLogin(e);
     }
   }
-
   if (emailSentMessage) {
     return (
       <div>
