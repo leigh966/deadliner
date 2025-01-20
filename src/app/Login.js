@@ -65,7 +65,8 @@ export default function Login() {
         <h2>{emailSentMessage}</h2>
         <p>
           Click the link sent to your email address to finish registering your
-          account
+          account. If you can't find it, make sure to check your spam/junk
+          folder.
         </p>
       </div>
     );
