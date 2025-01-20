@@ -1,4 +1,5 @@
 import { runQuery } from "@/app/api/query";
+import Link from "next/link";
 
 export async function confirmUser(userId) {
   // check that the user exists and is unconfirmed
@@ -18,8 +19,13 @@ export async function confirmUser(userId) {
 
 export default async function Page({ params }) {
   const userId = (await params).slug;
-  if (await confirmUser(userId)) {
-    return "User Confirmed";
-  }
-  return "404: Not Found";
+
+  return (
+    <div>
+      <h2>
+        {((await confirmUser(userId)) && "User Confirmed") || "404: Not Found"}
+      </h2>
+      <Link href="/">Return to login page</Link>
+    </div>
+  );
 }
