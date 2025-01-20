@@ -4,12 +4,16 @@ import Link from "next/link";
 import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
+import { useState } from "react";
 
 export default function Login() {
+  const [register, setRegister] = useState(false);
+  const [emailSentMessage, setEmailSentMessage] = useState(null);
+
   const router = useRouter();
   async function continueAsGuest(e) {
-    //send request for cookie
     e.preventDefault();
+    //send request for cookie
     const response = await fetch("/api/auth/guest", {
       method: "POST",
       headers: {
@@ -21,15 +25,85 @@ export default function Login() {
       router.refresh();
     }
   }
+
+  async function handleRegister(e) {
+    const formData = new FormData(e.target);
+    if (formData.get("password") != formData.get("confirmPassword")) {
+      alert("Passwords must match");
+      return;
+    }
+    const response = await fetch("/api/auth/user/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: formData.get("email"),
+        password: formData.get("password"),
+      }),
+    });
+    if (response.status == 200) {
+      // show message to check email
+      setEmailSentMessage(
+        "Confirmation email sent to " + formData.get("email")
+      );
+    } else {
+      alert("Error");
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (register) {
+      handleRegister(e);
+    }
+  }
+
+  if (emailSentMessage) {
+    return (
+      <div>
+        <h2>{emailSentMessage}</h2>
+        <p>
+          Click the link sent to your email address to finish registering your
+          account
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <form className={styles.form}>
-      <h2>Login</h2>
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="Password" />
-      <input type="submit" />
-      <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
-        Continue as guest
-      </Link>
-    </form>
+    <div>
+      <div>
+        <button onClick={() => setRegister(false)}>Login</button>
+        <button onClick={() => setRegister(true)}>Register</button>
+      </div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h2>{(register && "Register") || "Login"}</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          required={true}
+          name="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          required={true}
+          name="password"
+        />
+        {register && (
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            required={true}
+            name="confirmPassword"
+          />
+        )}
+        <input type="submit" />
+        <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
+          Continue as guest
+        </Link>
+      </form>
+    </div>
   );
 }

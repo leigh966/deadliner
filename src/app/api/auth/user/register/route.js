@@ -22,9 +22,9 @@ export async function POST(req) {
     } else {
       console.log("Email sent: " + info.response);
     }
-    return new Response(JSON.stringify({ message: "sending" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+  });
+  return new Response(JSON.stringify({ message: "sending" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
   });
 }
