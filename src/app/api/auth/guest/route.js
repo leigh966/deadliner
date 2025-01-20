@@ -10,8 +10,8 @@ export async function POST(req) {
   // create the user
   try {
     await runQuery(
-      "INSERT INTO users (name, temp, cookie) VALUES ($1, $2, $3) RETURNING *",
-      [sessionId, 1, sessionId]
+      "INSERT INTO users (id, name, temp, cookie) VALUES ($1, $2, $3, $4) RETURNING *",
+      [sessionId, sessionId, 1, sessionId]
     );
 
     generateSessionCookie(await cookies(), sessionId);
