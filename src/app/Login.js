@@ -75,8 +75,26 @@ export default function Login() {
   return (
     <div>
       <div>
-        <button onClick={() => setRegister(false)}>Login</button>
-        <button onClick={() => setRegister(true)}>Register</button>
+        <button
+          onClick={() => setRegister(false)}
+          className={
+            (!register ? styles.activeTab : styles.inactiveTab) +
+            " " +
+            styles.tab
+          }
+        >
+          Login
+        </button>
+        <button
+          onClick={() => setRegister(true)}
+          className={
+            (!register ? styles.inactiveTab : styles.activeTab) +
+            " " +
+            styles.tab
+          }
+        >
+          Register
+        </button>
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2>{(register && "Register") || "Login"}</h2>
