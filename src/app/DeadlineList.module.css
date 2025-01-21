@@ -16,10 +16,22 @@
   width: 7%;
 }
 
+.actionCell * {
+  padding: 5px;
+}
+
 .errorCell {
   text-align: center;
 }
 
 #deadlinesTableHead {
   background-color: lightblue;
+}
+
+#deadlinesTableHead * {
+  padding: 10px;
+}
+
+.deadlinesTableBodyRow td {
+  padding: 10px;
 }

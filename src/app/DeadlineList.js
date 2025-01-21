@@ -44,7 +44,7 @@ export default async function DeadlineList() {
         </thead>
         <tbody>
           {deadlines.map((dl) => (
-            <tr key={dl.id}>
+            <tr key={dl.id} className={styles.deadlinesTableBodyRow}>
               <td className={styles.title}>{dl.title}</td>
               <td className={styles.description}>{dl.description}</td>
               <td className={styles.date}>
