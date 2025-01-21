@@ -1,5 +1,5 @@
 "use client";
-
+import { handleEmailChange } from "@/lib/login-handling";
 import Link from "next/link";
 import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function Login() {
   const [register, setRegister] = useState(false);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
+  const [emailWarning, setEmailWarning] = useState(null);
 
   const router = useRouter();
   async function continueAsGuest(e) {
@@ -77,6 +78,7 @@ export default function Login() {
       handleLogin(e);
     }
   }
+
   if (emailSentMessage) {
     return (
       <div>
@@ -116,12 +118,20 @@ export default function Login() {
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2>{(register && "Register") || "Login"}</h2>
+
         <input
+          onChange={(e) => {
+            console.log(emailWarning);
+            handleEmailChange(e, register, setEmailWarning);
+          }}
           type="text"
           placeholder="Username"
           required={true}
           name="email"
         />
+        {emailWarning ? (
+          <span className={styles.warningMessage}>{emailWarning}</span>
+        ) : null}
         <input
           type="password"
           placeholder="Password"

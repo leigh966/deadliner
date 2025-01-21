@@ -27,3 +27,9 @@
 .tab {
   padding: 5px;
 }
+
+.warningMessage {
+  color: red;
+  padding: 1px;
+  margin: 1px;
+}
