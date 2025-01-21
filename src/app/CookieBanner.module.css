@@ -1,0 +1,22 @@
+#banner {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100px;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#banner h4 {
+  color: rgb(213, 225, 248);
+  width: 80%;
+  padding: 30px;
+}
+
+#banner button {
+  height: 40px;
+  width: 40px;
+  margin: 30px;
+}

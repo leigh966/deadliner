@@ -5,6 +5,7 @@ import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { CookieBanner } from "./CookieBanner";
 
 export default function Login() {
   const [register, setRegister] = useState(false);
@@ -157,6 +158,7 @@ export default function Login() {
           Continue as guest
         </Link>
       </form>
+      <CookieBanner />
     </div>
   );
 }
