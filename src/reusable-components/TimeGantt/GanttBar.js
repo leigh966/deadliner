@@ -20,6 +20,8 @@ function getRecordRectXDimensions(
 }
 
 function drawBarLabel(context, x, y, label, color, maxWidth) {
+  context.font = "14px Ariel";
+  context.textAlign = "left";
   context.fillStyle = color;
   context.fillText(label, x, y, maxWidth);
 }

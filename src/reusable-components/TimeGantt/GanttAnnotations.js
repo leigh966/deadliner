@@ -15,6 +15,9 @@ export function drawAnnotations(
   let notch_y = height - padding - lineThickness / 2 - notchHeight / 2;
   let line_y = height - padding - +lineThickness;
 
+  context.font = "14px Ariel";
+  context.textAlign = "left";
+
   context.fillRect(padding, line_y, width - padding * 2, 3);
   context.fillRect(padding, notch_y, notchThickness, notchHeight); // start notch
   context.fillRect(
@@ -24,7 +27,6 @@ export function drawAnnotations(
     notchHeight
   ); // end notch
 
-  context.font = "ariel 14px";
   // min date
   context.fillText(
     getShortDate(minDate),
