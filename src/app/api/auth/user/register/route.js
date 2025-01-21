@@ -41,8 +41,22 @@ async function hashPassword(password) {
   return await bcrypt.hash(password, 10);
 }
 
+async function userAlreadyExists(username) {
+  const response = await runQuery("SELECT * FROM users WHERE name=$1", [
+    username,
+  ]);
+  return response.rowCount > 0;
+}
+
 export async function POST(req) {
   const userJson = await req.json();
+
+  if (await userAlreadyExists(userJson.username)) {
+    return new Response(JSON.stringify({ message: "User already exists" }), {
+      status: 409,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   const userId = await createUser(
     userJson.username,

@@ -51,6 +51,8 @@ export default function Login() {
       setEmailSentMessage(
         "Confirmation email sent to " + formData.get("email")
       );
+    } else if (response.status == 409) {
+      alert("A user with this email address already exists");
     } else {
       alert("Error");
     }
