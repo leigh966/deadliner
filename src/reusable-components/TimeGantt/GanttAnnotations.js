@@ -23,12 +23,17 @@ export function drawAnnotations(
     notchThickness,
     notchHeight
   ); // end notch
+
+  context.font = "ariel 14px";
+  // min date
   context.fillText(
     getShortDate(minDate),
     padding - labelWidth / 2,
     line_y - 20,
     labelWidth
   );
+
+  // max date
   context.fillText(
     getShortDate(maxDate),
     width - padding - labelWidth / 2,

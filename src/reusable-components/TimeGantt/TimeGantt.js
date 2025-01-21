@@ -25,6 +25,18 @@ function drawBackground(context, color, width, height) {
   context.fillRect(0, 0, width, height);
 }
 
+function drawNoDataMessage(message, componentWidth, componentHeight, context) {
+  context.fillStyle = "black";
+  context.font = "50px Arial";
+  context.textAlign = "center";
+  context.fillText(
+    message,
+    componentWidth / 2,
+    componentHeight / 2,
+    componentWidth
+  );
+}
+
 export default function TimeGantt({
   width = 400,
   spacing = 20,
@@ -34,6 +46,7 @@ export default function TimeGantt({
   padding = 25,
   annotationColor = "grey",
   backgroundColor = "white",
+  noDataMessage = "",
 }) {
   const ref = useRef();
   if (!data) {
@@ -114,6 +127,10 @@ export default function TimeGantt({
       parseInt(myHeight),
       padding
     );
+
+    if (data.length == 0) {
+      drawNoDataMessage(noDataMessage, myWidth, myHeight, context);
+    }
   });
 
   return (

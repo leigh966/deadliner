@@ -21,21 +21,18 @@ export default async function DeadlineList() {
 
   return (
     <>
-      {deadlines.length > 0 ? (
-        <TimeGantt
-          width="80%"
-          height="40%"
-          data={deadlines.map((dl) => {
-            return {
-              startDate: dl.start_date,
-              endDate: dl.end_date,
-              label: dl.title,
-            };
-          })}
-        />
-      ) : (
-        "Loading Data..."
-      )}
+      <TimeGantt
+        width="80%"
+        height="40%"
+        data={deadlines.map((dl) => {
+          return {
+            startDate: dl.start_date,
+            endDate: dl.end_date,
+            label: dl.title,
+          };
+        })}
+        noDataMessage="No Deadlines Yet"
+      />
       <table>
         <thead>
           <tr>
