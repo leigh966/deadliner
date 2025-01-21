@@ -14,13 +14,22 @@ export async function POST(req) {
     [reqJson.username]
   );
 
+  const badLoginResponse = new Response(
+    JSON.stringify({ message: "Bad Credentials!" }),
+    {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (result.rowCount == 0) {
+    return badLoginResponse;
+  }
+
   const passwordHash = result.rows[0].password_hash;
 
   if (!(await bcrypt.compare(reqJson.password, passwordHash))) {
-    return new Response(JSON.stringify({ message: "Bad Credentials!" }), {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    });
+    return badLoginResponse;
   }
 
   // complete login
