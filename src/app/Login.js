@@ -10,8 +10,9 @@ import { CookieBanner } from "./CookieBanner";
 export default function Login() {
   const [register, setRegister] = useState(false);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
-  const [emailWarning, setEmailWarning] = useState(null);
+  const [emailWarning, setEmailWarning] = useState("Please enter a value");
   const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
 
   const router = useRouter();
   async function continueAsGuest(e) {
@@ -97,7 +98,7 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div id={styles.loginPage}>
       <div>
         <button
           onClick={() => setRegister(false)}
@@ -133,7 +134,7 @@ export default function Login() {
           required={true}
           name="email"
         />
-        {emailWarning ? (
+        {emailWarning && register ? (
           <span className={styles.warningMessage}>{emailWarning}</span>
         ) : null}
         <input
@@ -153,7 +154,29 @@ export default function Login() {
         {submitErrorMessage ? (
           <span className={styles.warningMessage}>{submitErrorMessage}</span>
         ) : null}
-        <input type="submit" disabled={emailWarning} />
+        {register && (
+          <div id={styles.privacyPolicyWrapper}>
+            <label>
+              I have read and agree to the{" "}
+              <Link
+                className={alinkstyle.aLink + " " + styles.noPadOrMargin}
+                target="_blank"
+                href="/privacy-policy"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+            <input
+              type="checkbox"
+              onChange={(e) => setPrivacyPolicy(e.target.checked)}
+              checked={privacyPolicy}
+            />
+          </div>
+        )}
+        <input
+          type="submit"
+          disabled={(emailWarning || !privacyPolicy) && register}
+        />
         <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
           Continue as guest
         </Link>

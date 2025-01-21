@@ -4,6 +4,7 @@
   text-align: center;
   background-color: azure;
   box-shadow: 1px 3px 5px black;
+  width: 100%;
 }
 .form * {
   padding: 10px;
@@ -32,4 +33,32 @@
   color: red;
   padding: 1px;
   margin: 1px;
+}
+
+#loginPage {
+  width: 300px;
+}
+
+#privacyPolicyWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#privacyPolicyWrapper label {
+  width: 90%;
+  text-align: left;
+}
+
+#privacyPolicyWrapper input {
+  width: 40px;
+  height: 40px;
+  align-self: center;
+}
+
+.noPadOrMargin {
+  padding: 0;
+  margin: 0;
 }
