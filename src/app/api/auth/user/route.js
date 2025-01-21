@@ -24,7 +24,10 @@ export async function POST(req) {
   }
 
   // complete login
-  await runQuery("UPDATE users SET cookie=$1", [sessionId]);
+  await runQuery("UPDATE users SET cookie=$1 WHERE name=$2", [
+    sessionId,
+    reqJson.username,
+  ]);
   generateSessionCookie(await cookies(), sessionId);
 
   return new Response(JSON.stringify({ message: "Success!" }), {
