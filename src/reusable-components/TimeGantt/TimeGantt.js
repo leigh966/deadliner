@@ -54,6 +54,7 @@ export default function TimeGantt({
   }
   let myWidth = width;
   let myHeight = height;
+  const spaceNeededForAnnotations = 20;
 
   const [screenSize, setScreenSize] = useState({ width: 192, height: 108 });
 
@@ -95,11 +96,14 @@ export default function TimeGantt({
 
     const calculatBarHeight = () => {
       const totalSpacing = data.length * spacing;
-      const heightRealestate = myHeight - padding * 2 - totalSpacing;
+      const heightRealestate =
+        myHeight - padding * 2 - totalSpacing - spaceNeededForAnnotations;
       return heightRealestate / data.length;
     };
 
-    const internalBarHeight = barHeight ? barHeight : calculatBarHeight();
+    const internalBarHeight = barHeight
+      ? barHeight
+      : calculatBarHeight(spaceNeededForAnnotations);
     const canvas = ref.current;
     const context = canvas.getContext("2d");
 
