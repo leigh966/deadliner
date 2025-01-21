@@ -19,3 +19,7 @@
 .errorCell {
   text-align: center;
 }
+
+#deadlinesTableHead {
+  background-color: lightblue;
+}

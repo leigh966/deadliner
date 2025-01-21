@@ -35,7 +35,7 @@ export default async function DeadlineList() {
       />
       <table>
         <thead>
-          <tr>
+          <tr id={styles.deadlinesTableHead}>
             <th className={styles.title}>Title</th>
             <th className={styles.description}>Description</th>
             <th className={styles.date}>Start Date</th>
@@ -43,27 +43,19 @@ export default async function DeadlineList() {
           </tr>
         </thead>
         <tbody>
-          {deadlines.length > 0 ? (
-            deadlines.map((dl) => (
-              <tr key={dl.id}>
-                <td className={styles.title}>{dl.title}</td>
-                <td className={styles.description}>{dl.description}</td>
-                <td className={styles.date}>
-                  {getShortDate(new Date(dl.start_date))}
-                </td>
-                <td className={styles.date}>
-                  {getShortDate(new Date(dl.end_date))}
-                </td>
-                <DeadlineActionCell record={dl} className={styles.actionCell} />
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={5} className={styles.errorCell}>
-                No deadlines available.
+          {deadlines.map((dl) => (
+            <tr key={dl.id}>
+              <td className={styles.title}>{dl.title}</td>
+              <td className={styles.description}>{dl.description}</td>
+              <td className={styles.date}>
+                {getShortDate(new Date(dl.start_date))}
               </td>
+              <td className={styles.date}>
+                {getShortDate(new Date(dl.end_date))}
+              </td>
+              <DeadlineActionCell record={dl} className={styles.actionCell} />
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </>
