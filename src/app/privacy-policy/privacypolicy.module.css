@@ -1,0 +1,63 @@
+/* styles/PrivacyPolicy.module.css */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.date {
+  text-align: center;
+  font-size: 1rem;
+  color: gray;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.subHeading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.listItem {
+  margin-bottom: 8px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.link {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.linkStyled {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.link:hover {
+  color: #0056b3;
+}
+
+.linkStyled:hover {
+  text-decoration: none;
+}
