@@ -10,6 +10,7 @@ export default function Login() {
   const [register, setRegister] = useState(false);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
   const [emailWarning, setEmailWarning] = useState(null);
+  const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
 
   const router = useRouter();
   async function continueAsGuest(e) {
@@ -65,8 +66,10 @@ export default function Login() {
     if (response.status == 200) {
       // logged in
       router.refresh();
+    } else if (response.status == 401) {
+      setSubmitErrorMessage("Incorrect Email/Password");
     } else {
-      alert("Error");
+      setSubmitErrorMessage("Error");
     }
   }
 
@@ -146,6 +149,9 @@ export default function Login() {
             name="confirmPassword"
           />
         )}
+        {submitErrorMessage ? (
+          <span className={styles.warningMessage}>{submitErrorMessage}</span>
+        ) : null}
         <input type="submit" disabled={emailWarning} />
         <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
           Continue as guest
