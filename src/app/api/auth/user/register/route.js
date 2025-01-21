@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import { v4 } from "uuid";
 import bcrypt from "bcrypt";
 import { runQuery } from "@/app/api/query";
+import { validateEmail } from "@/lib/email-validation";
 
 async function createUser(name, passwordHash) {
   const id = v4();
@@ -50,6 +51,13 @@ async function userAlreadyExists(username) {
 
 export async function POST(req) {
   const userJson = await req.json();
+
+  if (!validateEmail(userJson.username)) {
+    return new Response(JSON.stringify({ message: "Bad Email" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   if (await userAlreadyExists(userJson.username)) {
     return new Response(JSON.stringify({ message: "User already exists" }), {
