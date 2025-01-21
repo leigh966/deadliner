@@ -146,7 +146,7 @@ export default function Login() {
             name="confirmPassword"
           />
         )}
-        <input type="submit" />
+        <input type="submit" disabled={emailWarning} />
         <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
           Continue as guest
         </Link>
