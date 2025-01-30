@@ -175,9 +175,9 @@ const PrivacyPolicy = () => {
           </h2>
           <p className={styles.text}>
             I may update this Privacy Policy from time to time. Any changes will
-            be posted on this page, with the "Last Updated" date revised
-            accordingly. I recommend reviewing this policy periodically to stay
-            informed about how I am protecting your personal data.
+            be posted on this page, with the &quot;Last Updated&quot; date
+            revised accordingly. I recommend reviewing this policy periodically
+            to stay informed about how I am protecting your personal data.
           </p>
         </section>
 
