@@ -1,5 +1,5 @@
 // app/cookie-policy/page.js
-import styles from "./cookiePolicy.module.css";
+import styles from "./cookiepolicy.module.css";
 
 const CookiePolicy = () => {
   return (
