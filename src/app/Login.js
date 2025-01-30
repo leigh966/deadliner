@@ -90,7 +90,7 @@ export default function Login() {
         <h2>{emailSentMessage}</h2>
         <p>
           Click the link sent to your email address to finish registering your
-          account. If you can't find it, make sure to check your spam/junk
+          account. If you can&apos;t find it, make sure to check your spam/junk
           folder.
         </p>
       </div>

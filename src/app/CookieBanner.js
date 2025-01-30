@@ -14,8 +14,8 @@ export function CookieBanner() {
     <div id={styles.banner}>
       <h4>
         This site uses essential cookies to make sure everything works smoothly.
-        By continuing to browse, you're agreeing to their use. For more details,
-        check out my{" "}
+        By continuing to browse, you&apos;re agreeing to their use. For more
+        details, check out my{" "}
         <a className={aLinkStyle.aLink} href="/cookie-policy" target="_blank">
           Cookie Policy
         </a>
