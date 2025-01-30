@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS public.deadlines
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.deadlines
-    OWNER to postgres;
 -- Index: fki_user_id
 
 -- DROP INDEX IF EXISTS public.fki_user_id;
