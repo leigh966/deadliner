@@ -11,11 +11,12 @@ const CookiePolicy = () => {
 
       <h2 className={styles.heading2}>1. Introduction</h2>
       <p className={styles.paragraph}>
-        Hi there! I'm a solo developer, and I run this website as a personal
-        project. This Cookie Policy is here to let you know what cookies I use
-        on this site, why I use them, and how they help the website function.
-        Since I only use essential cookies, there’s nothing to worry about —
-        they’re necessary for the website to work properly.
+        Hi there! I&apos;m a solo developer, and I run this website as a
+        personal project. This Cookie Policy is here to let you know what
+        cookies I use on this site, why I use them, and how they help the
+        website function. Since I only use essential cookies, there&apos;s
+        nothing to worry about — they&apos;re necessary for the website to work
+        properly.
       </p>
       <p className={styles.paragraph}>
         By continuing to browse this site, you agree to the use of these
@@ -43,8 +44,8 @@ const CookiePolicy = () => {
         </li>
       </ul>
       <p className={styles.paragraph}>
-        Since these cookies are essential, they don't require your consent, but
-        I want to make sure you're aware of them.
+        Since these cookies are essential, they don&apos;t require your consent,
+        but I want to make sure you&apos;re aware of them.
       </p>
 
       <h2 className={styles.heading2}>4. Why Do I Use These Cookies?</h2>
@@ -55,24 +56,24 @@ const CookiePolicy = () => {
           a guest).
         </li>
         <li className={styles.listItem}>
-          Maintain your session while you’re using the site so that you don’t
-          have to log in repeatedly.
+          Maintain your session while you&apos;re using the site so that you
+          don&apos;t have to log in repeatedly.
         </li>
       </ul>
       <p className={styles.paragraph}>
-        These cookies are crucial for the website’s operation and make sure the
-        basic functionality is there.
+        These cookies are crucial for the website&apos;s operation and make sure
+        the basic functionality is there.
       </p>
 
       <h2 className={styles.heading2}>5. How to Control Cookies</h2>
       <p className={styles.paragraph}>
         Since the cookies I use are essential, they are required for the website
-        to function. There’s no need to accept them manually. However, if you
-        prefer, you can adjust your browser settings to block or delete cookies,
-        but this may affect the site’s functionality.
+        to function. There&apos;s no need to accept them manually. However, if
+        you prefer, you can adjust your browser settings to block or delete
+        cookies, but this may affect the site&apos;s functionality.
       </p>
       <p className={styles.paragraph}>
-        Here’s how you can manage cookies in your browser:
+        Here&apos;s how you can manage cookies in your browser:
       </p>
       <ul className={styles.list}>
         <li className={styles.listItem}>
@@ -110,8 +111,8 @@ const CookiePolicy = () => {
       <h2 className={styles.heading2}>6. Changes to This Cookie Policy</h2>
       <p className={styles.paragraph}>
         Since this website is a personal project, I may update this policy
-        occasionally. If I make any changes, I’ll update the “Last Updated” date
-        above. Feel free to check back here to stay informed.
+        occasionally. If I make any changes, I&apos;ll update the “Last Updated”
+        date above. Feel free to check back here to stay informed.
       </p>
 
       <h2 className={styles.heading2}>7. Contact Me</h2>
