@@ -50,6 +50,7 @@ export default function TimeGantt({
   backgroundColor = "white",
   noDataMessage = "",
   showCurrent = true,
+  onBarClicked = null,
 }) {
   const ref = useRef();
   if (!data) {
@@ -77,6 +78,30 @@ export default function TimeGantt({
       screenSize.height,
       myHeight.toString().split("%")[0]
     );
+  }
+
+  const [barColliders, setBarColliders] = useState([]);
+
+  function handleClick(e) {
+    if (!onBarClicked) return;
+    const boundingClientRect = e.target.getBoundingClientRect();
+    const pos = {
+      x: e.clientX - boundingClientRect.x,
+      y: e.clientY - boundingClientRect.y,
+    };
+    function boxPointCollision(boxCollider, pointPos) {
+      return (
+        pointPos.x >= boxCollider.left &&
+        pointPos.x <= boxCollider.right &&
+        pointPos.y >= boxCollider.top &&
+        pointPos.y <= boxCollider.bottom
+      );
+    }
+    barColliders.forEach((col) => {
+      if (boxPointCollision(col, pos)) {
+        onBarClicked(col.record);
+      }
+    });
   }
 
   useEffect(() => {
@@ -115,16 +140,19 @@ export default function TimeGantt({
 
     drawBackground(context, backgroundColor, myWidth, myHeight);
 
-    drawBars(
-      context,
-      data,
-      padding,
-      timeToScreenMultiplier,
-      startDate,
-      internalBarHeight,
-      spacing,
-      myWidth
+    setBarColliders(
+      drawBars(
+        context,
+        data,
+        padding,
+        timeToScreenMultiplier,
+        startDate,
+        internalBarHeight,
+        spacing,
+        myWidth
+      )
     );
+    console.log(barColliders);
     context.fillStyle = "grey";
     if (annotationColor) {
       context.fillStyle = annotationColor;
@@ -151,7 +179,20 @@ export default function TimeGantt({
     if (data.length == 0) {
       drawNoDataMessage(noDataMessage, myWidth, myHeight, context);
     }
-  });
+  }, [
+    data,
+    myWidth,
+    padding,
+    barHeight,
+    backgroundColor,
+    myHeight,
+    spacing,
+    annotationColor,
+    showCurrent,
+    minBarHeight,
+    maxBarHeight,
+    noDataMessage,
+  ]);
 
   return (
     <canvas
@@ -159,6 +200,7 @@ export default function TimeGantt({
       ref={ref}
       width={myWidth}
       height={myHeight}
+      onClick={handleClick}
     />
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import pool from "../lib/db";
 import styles from "./DeadlineList.module.css";
-import TimeGantt from "@/reusable-components/TimeGantt/TimeGantt";
+import DeadlineGantt from "./DeadlineGantt";
 import DeadlineActionCell from "./DeadlineActionCell";
 import { getShortDate } from "@/reusable-components/Dates";
 import { runQuery, getUserId } from "./api/query";
@@ -21,19 +21,7 @@ export default async function DeadlineList() {
 
   return (
     <>
-      <TimeGantt
-        width="80%"
-        height="40%"
-        maxBarHeight={100}
-        data={deadlines.map((dl) => {
-          return {
-            startDate: dl.start_date,
-            endDate: dl.end_date,
-            label: dl.title,
-          };
-        })}
-        noDataMessage="No Deadlines Yet"
-      />
+      <DeadlineGantt deadlines={deadlines} />
       <table>
         <thead>
           <tr id={styles.deadlinesTableHead}>
