@@ -41,6 +41,8 @@ export default function TimeGantt({
   width = 400,
   spacing = 20,
   barHeight = null,
+  maxBarHeight = 100000000,
+  minBarHeight = 1,
   height = 400,
   data,
   padding = 25,
@@ -98,7 +100,10 @@ export default function TimeGantt({
       const totalSpacing = data.length * spacing;
       const heightRealestate =
         myHeight - padding * 2 - totalSpacing - spaceNeededForAnnotations;
-      return heightRealestate / data.length;
+      const calculatedHeight = heightRealestate / data.length;
+      if (calculatedHeight < minBarHeight) return minBarHeight;
+      if (calculatedHeight > maxBarHeight) return maxBarHeight;
+      return calculatedHeight;
     };
 
     const internalBarHeight = barHeight

@@ -24,6 +24,7 @@ export default async function DeadlineList() {
       <TimeGantt
         width="80%"
         height="40%"
+        maxBarHeight={100}
         data={deadlines.map((dl) => {
           return {
             startDate: dl.start_date,
