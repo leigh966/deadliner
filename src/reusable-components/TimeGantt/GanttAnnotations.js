@@ -1,4 +1,19 @@
 import { getShortDate } from "../Dates";
+import { getX } from "./dimensions";
+
+export function drawCurrent(
+  context,
+  currentDate,
+  timeToScreen,
+  padding,
+  innerHeight,
+  globalStart
+) {
+  context.fillStyle = "red";
+  const x = getX(timeToScreen, currentDate, globalStart, padding);
+  context.fillRect(x, padding, 2, innerHeight);
+  context.fillText(getShortDate(currentDate), x, padding);
+}
 
 export function drawAnnotations(
   context,

@@ -3,7 +3,7 @@
 import styles from "./TimeGantt.module.css";
 import { useEffect, useRef, useState } from "react";
 import { drawBars } from "./GanttBar";
-import { drawAnnotations } from "./GanttAnnotations";
+import { drawAnnotations, drawCurrent } from "./GanttAnnotations";
 import { getRandomColor } from "../Colors";
 
 function getStart(data) {
@@ -49,6 +49,7 @@ export default function TimeGantt({
   annotationColor = "grey",
   backgroundColor = "white",
   noDataMessage = "",
+  showCurrent = true,
 }) {
   const ref = useRef();
   if (!data) {
@@ -136,6 +137,16 @@ export default function TimeGantt({
       parseInt(myHeight),
       padding
     );
+    if (showCurrent) {
+      drawCurrent(
+        context,
+        new Date(),
+        timeToScreenMultiplier,
+        padding,
+        myHeight - padding * 2,
+        startDate
+      );
+    }
 
     if (data.length == 0) {
       drawNoDataMessage(noDataMessage, myWidth, myHeight, context);

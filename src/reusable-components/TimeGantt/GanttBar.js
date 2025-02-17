@@ -1,23 +1,5 @@
 import { getRandomColor } from "../Colors";
-
-function getRecordRectXDimensions(
-  record,
-  timeToScreenMultiplier,
-  globalStart,
-  padding
-) {
-  return {
-    x:
-      timeToScreenMultiplier *
-        (record.startDate.getTime() - globalStart.getTime()) +
-      padding,
-    width:
-      (record.endDate.getTime() -
-        globalStart -
-        (record.startDate.getTime() - globalStart)) *
-      timeToScreenMultiplier,
-  };
-}
+import { getRecordRectXDimensions } from "./dimensions";
 
 function drawBarLabel(context, x, y, label, color, maxWidth) {
   context.font = "14px Ariel";
