@@ -10,8 +10,8 @@ export default function DeadlineGantt({ deadlines }) {
   return (
     <>
       <TimeGantt
-        width="80%"
-        height="40%"
+        width="90%"
+        height="80%"
         maxBarHeight={100}
         data={deadlines.map((dl) => {
           return {
