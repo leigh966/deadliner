@@ -10,7 +10,13 @@ function formatDate(date) {
   return out;
 }
 
-export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
+export default function DeadlineForm({
+  setVisible,
+  header,
+  onSubmit,
+  record,
+  onDelete = null,
+}) {
   const [title, setTitle] = useState(record ? record.title : "");
   const [description, setDescription] = useState(
     record ? record.description : ""
@@ -48,6 +54,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
         x
       </button>
       <h1>{header}</h1>
+      {onDelete && <button onClick={onDelete}>🗑️</button>}
       <form
         onSubmit={(e) =>
           onSubmit(e, deadlineData, setMessage, refresh, setVisible)
@@ -55,7 +62,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
         id={styles.deadlineInnerForm}
       >
         <div className={styles.field}>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Title</label>
           <input
             type="text"
             id="title"
@@ -66,8 +73,8 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="description">Description:</label>
-          <input
+          <label htmlFor="description">Description</label>
+          <textarea
             type="text"
             id="description"
             value={description}
@@ -75,7 +82,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="start_date">Start Date:</label>
+          <label htmlFor="start_date">Start Date</label>
           <input
             type="date"
             id="start_date"
@@ -85,7 +92,7 @@ export default function DeadlineForm({ setVisible, header, onSubmit, record }) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="end_date">End Date:</label>
+          <label htmlFor="end_date">End Date</label>
           <input
             type="date"
             id="end_date"
