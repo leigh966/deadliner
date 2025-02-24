@@ -22,31 +22,6 @@ export default async function DeadlineList() {
   return (
     <>
       <DeadlineGantt deadlines={deadlines} />
-      <table>
-        <thead>
-          <tr id={styles.deadlinesTableHead}>
-            <th className={styles.title}>Title</th>
-            <th className={styles.description}>Description</th>
-            <th className={styles.date}>Start Date</th>
-            <th className={styles.date}>End Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {deadlines.map((dl) => (
-            <tr key={dl.id} className={styles.deadlinesTableBodyRow}>
-              <td className={styles.title}>{dl.title}</td>
-              <td className={styles.description}>{dl.description}</td>
-              <td className={styles.date}>
-                {getShortDate(new Date(dl.start_date))}
-              </td>
-              <td className={styles.date}>
-                {getShortDate(new Date(dl.end_date))}
-              </td>
-              <DeadlineActionCell record={dl} className={styles.actionCell} />
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </>
   );
 }
