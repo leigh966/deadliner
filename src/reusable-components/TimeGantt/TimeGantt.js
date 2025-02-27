@@ -201,6 +201,7 @@ export default function TimeGantt({
       width={myWidth}
       height={myHeight}
       onClick={handleClick}
+      style={{ display: "inherit", width: myWidth, myHeight: height }}
     />
   );
 }

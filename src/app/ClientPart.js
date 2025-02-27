@@ -15,7 +15,7 @@ export default function ClientPart() {
         }}
         id={styles.addButton}
       >
-        Add
+        +
       </button>
     </div>
   );
