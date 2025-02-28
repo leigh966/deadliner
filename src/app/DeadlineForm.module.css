@@ -6,10 +6,21 @@
   background-color: lightgray;
   padding: 10px;
   place-self: center;
-  top: 30%;
+  top: 10%;
   left: 50%;
-  margin-top: -90px;
   margin-left: -200px;
+}
+
+@media only screen and (max-height: 600px) {
+  #deadlineForm {
+    height: 100%;
+    top: 0px;
+  }
+
+  #deadlineInnerForm {
+    overflow-y: scroll;
+    height: 330px !important;
+  }
 }
 
 #deadlineInnerForm {
