@@ -19,7 +19,7 @@
 
   #deadlineInnerForm {
     overflow-y: scroll;
-    height: 330px !important;
+    height: 80% !important;
   }
 }
 
