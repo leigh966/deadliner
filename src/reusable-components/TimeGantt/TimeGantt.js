@@ -2,9 +2,8 @@
 
 import styles from "./TimeGantt.module.css";
 import { useEffect, useRef, useState } from "react";
-import { drawBars } from "./GanttBar";
+import { drawBars, getColor } from "./GanttBar";
 import { drawAnnotations, drawCurrent } from "./GanttAnnotations";
-import { getRandomColor } from "../Colors";
 
 function getStart(data) {
   return data.reduce((min, record) => {
@@ -109,9 +108,9 @@ export default function TimeGantt({
     window.addEventListener("resize", () =>
       setScreenSize({ width: window.innerWidth, height: window.innerHeight })
     );
-    data.forEach((element) => {
+    data.forEach((element, index) => {
       if (!element.color) {
-        element.color = getRandomColor();
+        element.color = getColor(index);
       }
     });
   }, []);

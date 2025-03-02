@@ -1,4 +1,3 @@
-import { getRandomColor } from "../Colors";
 import { getRecordRectXDimensions } from "./dimensions";
 
 function drawBarLabel(context, x, y, label, color, maxWidth) {
@@ -6,6 +5,11 @@ function drawBarLabel(context, x, y, label, color, maxWidth) {
   context.textAlign = "left";
   context.fillStyle = color;
   context.fillText(label, x, y, maxWidth);
+}
+
+export function getColor(index) {
+  const colors = ["red", "green", "blue", "yellow", "pink", "orange", "purple"];
+  return colors[index % colors.length];
 }
 
 function drawBar(
@@ -27,7 +31,8 @@ function drawBar(
   );
   let color = record.color;
   if (!color) {
-    color = getRandomColor();
+    color = getColor(index);
+    console.log(color);
   }
   const y = index * (barHeight + spacing) + padding;
 
