@@ -34,7 +34,7 @@ function drawBar(
     color = getColor(index);
     console.log(color);
   }
-  const y = index * (barHeight + spacing) + padding;
+  const y = spacing + index * (barHeight + spacing) + padding;
 
   context.fillStyle = color;
   console.log(xDims);

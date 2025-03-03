@@ -122,7 +122,7 @@ export default function TimeGantt({
       (myWidth - padding * 2) / (endDate.getTime() - startDate.getTime());
 
     const calculatBarHeight = () => {
-      const totalSpacing = data.length * spacing;
+      const totalSpacing = (data.length + 2) * spacing;
       const heightRealestate =
         myHeight - padding * 2 - totalSpacing - spaceNeededForAnnotations;
       const calculatedHeight = heightRealestate / data.length;
