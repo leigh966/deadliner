@@ -11,9 +11,11 @@ export function getColor(index) {
   const colors = [
     "violet",
     "turquoise",
-    "magenta",
     "yellow",
-    "pink",
+    "green",
+    "magenta",
+
+    "navy",
     "orange",
     "purple",
   ];
