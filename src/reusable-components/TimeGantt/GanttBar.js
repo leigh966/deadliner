@@ -8,7 +8,15 @@ function drawBarLabel(context, x, y, label, color, maxWidth) {
 }
 
 export function getColor(index) {
-  const colors = ["red", "green", "blue", "yellow", "pink", "orange", "purple"];
+  const colors = [
+    "violet",
+    "turquoise",
+    "magenta",
+    "yellow",
+    "pink",
+    "orange",
+    "purple",
+  ];
   return colors[index % colors.length];
 }
 
