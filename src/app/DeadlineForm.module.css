@@ -11,6 +11,10 @@
   margin-left: -200px;
 }
 
+#deadlineForm h1 {
+  color: black;
+}
+
 @media only screen and (max-height: 600px) {
   #deadlineForm {
     height: 100%;
@@ -41,6 +45,10 @@
 
 .field * {
   width: 100%;
+}
+
+.field label {
+  color: black;
 }
 
 .field input {
