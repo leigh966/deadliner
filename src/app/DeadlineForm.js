@@ -66,6 +66,7 @@ export default function DeadlineForm({
           <input
             type="text"
             id="title"
+            placeholder="My Deadline"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             maxLength="30"
@@ -77,6 +78,7 @@ export default function DeadlineForm({
           <textarea
             type="text"
             id="description"
+            placeholder="In this project I aim to..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
