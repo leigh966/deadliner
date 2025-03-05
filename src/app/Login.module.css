@@ -11,8 +11,11 @@
   margin: 10px;
 }
 
+.form h2 {
+  color: black;
+}
+
 .inactiveTab {
-  background-color: white;
   border: 1px solid black;
   border-bottom: none;
   cursor: pointer;
@@ -25,8 +28,21 @@
   background-color: azure;
 }
 
+@media (prefers-color-scheme: dark) {
+  .inactiveTab {
+    border: 1px solid white;
+    border-bottom: none;
+  }
+
+  .activeTab {
+    border: 2px solid white;
+    border-bottom: none;
+  }
+}
+
 .tab {
   padding: 5px;
+  color: black;
 }
 
 .warningMessage {
