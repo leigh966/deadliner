@@ -130,7 +130,7 @@ export default function Login() {
             handleEmailChange(e, register, setEmailWarning);
           }}
           type="text"
-          placeholder="Username"
+          placeholder="Email"
           required={true}
           name="email"
         />
