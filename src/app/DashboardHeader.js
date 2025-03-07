@@ -26,7 +26,7 @@ export default function DashboardHeader({ loggedIn }) {
       {!loggedIn && (
         <button onClick={() => setShowLogin(!showLogin)}>Register</button>
       )}
-      {showLogin && <LoginForm />}
+      {showLogin && <LoginForm startRegister={true} />}
     </div>
   );
 }

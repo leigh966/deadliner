@@ -7,8 +7,8 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { CookieBanner } from "./CookieBanner";
 
-export default function LoginForm() {
-  const [register, setRegister] = useState(false);
+export default function LoginForm({ startRegister = false }) {
+  const [register, setRegister] = useState(startRegister);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
   const [emailWarning, setEmailWarning] = useState("Please enter a value");
   const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
