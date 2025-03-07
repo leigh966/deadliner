@@ -17,7 +17,7 @@ export default async function Home(props) {
   if (
     cookieStore.get("session") &&
     (
-      await runQuery("SELECT * FROM users WHERE cookie=$1", [
+      await runQuery("SELECT * FROM users WHERE cookie=$1 AND cookie != ''", [
         cookieStore.get("session").value,
       ])
     ).rowCount == 1
