@@ -22,7 +22,7 @@ export default async function Home(props) {
       ])
     ).rowCount == 1
   ) {
-    pageToReturn = <Dashboard />;
+    pageToReturn = <Dashboard cookie={cookieStore.get("session").value} />;
   } else {
   }
 
