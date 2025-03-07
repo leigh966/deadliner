@@ -1,7 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import LoginForm from "./LoginForm";
 export default function DashboardHeader({ loggedIn }) {
   const router = useRouter();
+  const [showLogin, setShowLogin] = useState(false);
   return (
     <div>
       {loggedIn && (
@@ -20,6 +23,10 @@ export default function DashboardHeader({ loggedIn }) {
           Log Out
         </button>
       )}
+      {!loggedIn && (
+        <button onClick={() => setShowLogin(!showLogin)}>Register</button>
+      )}
+      {showLogin && <LoginForm />}
     </div>
   );
 }

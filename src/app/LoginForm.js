@@ -7,7 +7,7 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { CookieBanner } from "./CookieBanner";
 
-export default function Login() {
+export default function LoginForm() {
   const [register, setRegister] = useState(false);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
   const [emailWarning, setEmailWarning] = useState("Please enter a value");
@@ -181,7 +181,6 @@ export default function Login() {
           Continue as guest
         </Link>
       </form>
-      <CookieBanner />
     </div>
   );
 }

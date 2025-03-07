@@ -53,6 +53,7 @@
 
 #loginPage {
   width: 300px;
+  position: absolute;
 }
 
 #privacyPolicyWrapper {

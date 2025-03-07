@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import Dashboard from "./Dashboard";
-import Login from "./Login";
+import LoginForm from "./LoginForm";
 import { cookies } from "next/headers";
 import { runQuery } from "./api/query";
 
@@ -13,7 +13,7 @@ export default async function Home(props) {
   //   </div>
   // ));
 
-  let pageToReturn = <Login />;
+  let pageToReturn = <LoginForm />;
   if (
     cookieStore.get("session") &&
     (
