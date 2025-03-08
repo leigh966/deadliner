@@ -69,7 +69,8 @@ export default function LoginForm({
     const response = await postAuth("/api/auth/user", formData);
     if (response.status == 200) {
       // logged in
-      router.refresh();
+      //router.refresh();
+      location.reload();
     } else if (response.status == 401) {
       setSubmitErrorMessage("Incorrect Email/Password");
     } else {
