@@ -5,9 +5,11 @@ import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { CookieBanner } from "./CookieBanner";
 
-export default function LoginForm({ startRegister = false }) {
+export default function LoginForm({
+  startRegister = false,
+  extraStyles = { dashboarLogin: "" },
+}) {
   const [register, setRegister] = useState(startRegister);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
   const [emailWarning, setEmailWarning] = useState("Please enter a value");
@@ -98,7 +100,7 @@ export default function LoginForm({ startRegister = false }) {
   }
 
   return (
-    <div id={styles.loginPage}>
+    <div id={styles.loginPage} className={extraStyles.dashboardLogin}>
       <div>
         <button
           onClick={() => setRegister(false)}

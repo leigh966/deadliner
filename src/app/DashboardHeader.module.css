@@ -1,0 +1,11 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 252px;
+}
+
+.dashboardLogin {
+  right: 10px !important;
+  top: 30px !important;
+}
