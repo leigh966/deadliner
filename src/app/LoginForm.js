@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function LoginForm({
   startRegister = false,
   extraStyles = { dashboarLogin: "" },
+  showContinueAsGuest = true,
 }) {
   const [register, setRegister] = useState(startRegister);
   const [emailSentMessage, setEmailSentMessage] = useState(null);
@@ -180,9 +181,11 @@ export default function LoginForm({
           type="submit"
           disabled={(emailWarning || !privacyPolicy) && register}
         />
-        <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
-          Continue as guest
-        </Link>
+        {showContinueAsGuest && (
+          <Link onClick={continueAsGuest} href="/" className={alinkstyle.aLink}>
+            Continue as guest
+          </Link>
+        )}
       </form>
     </div>
   );
