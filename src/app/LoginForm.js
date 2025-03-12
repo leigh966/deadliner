@@ -5,6 +5,7 @@ import alinkstyle from "../reusable-components/ALink.module.css";
 import { useRouter } from "next/navigation";
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { validatePassword } from "@/lib/password-validation";
 
 export default function LoginForm({
   startRegister = false,
@@ -16,6 +17,9 @@ export default function LoginForm({
   const [emailWarning, setEmailWarning] = useState("Please enter a value");
   const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const passwordValidation = validatePassword(password);
 
   const router = useRouter();
   async function continueAsGuest(e) {
@@ -146,7 +150,16 @@ export default function LoginForm({
           placeholder="Password"
           required={true}
           name="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
+        {register && !passwordValidation.valid && (
+          <span className={styles.warningMessage}>
+            {passwordValidation.message}
+          </span>
+        )}
         {register && (
           <input
             type="password"
