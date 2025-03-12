@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import bcrypt from "bcrypt";
 import { runQuery } from "@/app/api/query";
 import { validateEmail } from "@/lib/email-validation";
+import { validatePassword } from "@/lib/password-validation";
 
 async function createUser(name, passwordHash) {
   const id = v4();
@@ -57,6 +58,17 @@ export async function POST(req) {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
+  }
+
+  const passwordValidation = validatePassword(userJson.password);
+  if (!passwordValidation.valid) {
+    return new Response(
+      JSON.stringify({ message: passwordValidation.message }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 
   if (await userAlreadyExists(userJson.username)) {
