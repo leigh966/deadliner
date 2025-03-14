@@ -65,12 +65,9 @@
 }
 
 #privacyPolicyWrapper label {
-  color: black;
-}
-
-#privacyPolicyWrapper label {
   width: 90%;
   text-align: left;
+  color: black;
 }
 
 #privacyPolicyWrapper input {
